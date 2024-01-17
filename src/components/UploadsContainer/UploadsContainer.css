@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex: 0.4;
 }
 
 .uploads-left h3 {
@@ -20,6 +21,12 @@
 }
 
 .main-photo-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.additional-photo-container {
   display: flex;
   align-items: center;
   gap: 40px;
@@ -56,6 +63,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex: 0.6;
 }
 
 .uploads-right h3 {
@@ -80,7 +88,6 @@
 
   .upload-result {
     display: flex;
-    flex-wrap: nowrap;
     justify-content: center;
   }
 }

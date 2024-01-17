@@ -61,7 +61,7 @@ const UploadsContainer = ({
       </div>
       <div className="uploads-right">
         <h3>Additional photos</h3>
-        <div className="main-photo-container">
+        <div className="additional-photo-container">
           <div className="upload-btn">
             <img src={plus} alt="add" />
             <label htmlFor="additionalPhotos">UPLOAD</label>
