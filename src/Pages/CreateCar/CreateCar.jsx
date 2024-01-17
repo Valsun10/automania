@@ -56,7 +56,10 @@ const CreateCar = () => {
               <img
                 src={closeBTN}
                 alt="closebutton"
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  setIsEdit(false);
+                  navigate("/");
+                }}
               />
               {!isEdit ? <h1>NEW LISTING</h1> : <h1>EDIT LISTING</h1>}
             </div>
