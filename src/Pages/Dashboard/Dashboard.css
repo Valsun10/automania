@@ -1,0 +1,133 @@
+.wrapper {
+  max-width: 1820px;
+  height: auto;
+  background: #fff;
+  box-shadow: var(--box-shadow);
+  border-radius: 5px;
+  padding: 32px 22px;
+  margin: 32px auto;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dashboard-heading {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dashboard-heading h1 {
+  font-size: 20px;
+  font-family: var(--font-family);
+  color: #0c0c21;
+  text-transform: uppercase;
+}
+
+.dashboard-cars-container {
+  margin-top: 38px;
+  max-width: 1820px;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: 500px;
+  height: 250px;
+  background: white;
+  padding: 35px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-heading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.modal-heading h1 {
+  font-size: 20px;
+  font-family: var(--font-family);
+  line-height: 30px;
+}
+
+.modal-heading p {
+  font-size: 16px;
+  font-family: var(--font-family);
+  line-height: 24px;
+  color: #0c0c21;
+}
+
+.modal-btn-container {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.close-modal {
+  padding: 7px 55px;
+  border: 1px solid var(--blue-color);
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: var(--font-family);
+}
+
+.close-modal:active {
+  transform: scale(0.97);
+}
+
+.delete-btn {
+  padding: 7px 55px;
+  border: none;
+  border-radius: 5px;
+  background: #eb1d6c;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: var(--font-family);
+  color: #fff;
+}
+
+.delete-btn:active {
+  transform: scale(0.97);
+}
+
+@media screen and (max-width: 1880px) {
+  .dashboard-cars-container {
+    justify-content: center;
+  }
+
+  .wrapper {
+    margin: 32px 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .dashboard-heading h1 {
+    font-size: 17px;
+  }
+}
