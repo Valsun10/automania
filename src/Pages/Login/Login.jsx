@@ -11,6 +11,7 @@ const Login = () => {
   const [emailInputValue, setEmailInputValue] = useState("");
   const [passwordInputValue, setPasswordInputValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const { onLogin } = useGlobalContext();
   const navigate = useNavigate();
@@ -19,20 +20,25 @@ const Login = () => {
     setShowPassword((state) => !state);
   };
 
-  const isButtonValid =
-    !emailInputValue.trim() === "" || passwordInputValue.length < 6;
+  const isButtonValid = emailInputValue.trim() === "";
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    authService.login(emailInputValue, passwordInputValue).then((res) => {
-      if (res.success) {
-        onLogin(res);
-        navigate("/");
-      } else {
-        console.log(res.message);
-      }
-    });
+    authService
+      .login(emailInputValue, passwordInputValue)
+      .then((res) => {
+        if (!res.success) {
+          throw new Error("Incorrect email or password!");
+        } else if (res.success) {
+          onLogin(res);
+          setError("");
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        setError("Incorrect email or password!");
+      });
   };
 
   return (
@@ -63,6 +69,7 @@ const Login = () => {
                 onChange={(e) => setPasswordInputValue(e.target.value)}
                 value={passwordInputValue}
               />
+              {error ? <p style={{ color: "red" }}>{error}</p> : ""}
               <span onClick={handleShowPassword}>
                 <img src={!showPassword ? `${view}` : `${view2}`} alt="view" />
               </span>

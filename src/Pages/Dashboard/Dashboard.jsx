@@ -5,16 +5,26 @@ import CarItem from "../../components/CarItem/CarItem";
 import carsService from "../../services/CarsService";
 import LoadingSpinner from "./../../components/LoadingSpinner/LoadingSpinner";
 import { useGlobalContext } from "../../context/GlobalContext";
+import ReactPaginate from "react-paginate";
 
 const Dashboard = () => {
   const [cars, setCars] = useState([]);
+  const [currentCars, setCurrentCars] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [itemOffset, setItemOffset] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const itemsPerPage = 12;
 
   const { isModalOpen, closeModal, carId } = useGlobalContext();
 
   const carsLenght = cars.length;
   const token = localStorage.getItem("token");
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * itemsPerPage) & cars.length;
+    setItemOffset(newOffset);
+  };
 
   const handleDelete = (carID) => {
     carsService.deleteCar(carID, token).then((res) => {
@@ -29,7 +39,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const res = await carsService.fetchAllCars(1, 12);
+        const res = await carsService.fetchAllCars(1, 20);
         setCars(res);
       } catch (error) {
         setErrorMessage(error.message);
@@ -40,6 +50,12 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentCars(cars.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(cars.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, cars]);
 
   return (
     <>
@@ -54,11 +70,24 @@ const Dashboard = () => {
             {isLoading ? (
               <LoadingSpinner />
             ) : (
-              cars.map((car) => (
+              currentCars.map((car) => (
                 <CarItem key={car.id} car={car} setCars={setCars} cars={cars} />
               ))
             )}
           </div>
+          <ReactPaginate
+            nextLabel="next"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel="previous"
+            containerClassName="pagination"
+            previousClassName="page-num"
+            nextClassName="page-num"
+            pageClassName="page-num"
+            activeClassName="active-page-num"
+            renderOnZeroPageCount={null}
+          />
         </div>
       </div>
       {!isModalOpen ? (

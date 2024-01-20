@@ -116,6 +116,35 @@
   transform: scale(0.97);
 }
 
+.pagination {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.page-num {
+  padding: 7px 10px;
+  background-color: var(--blue-color);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.page-num:active {
+  transform: scale(0.97);
+}
+
+.active-page-num {
+  background: #0c0c21;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 1880px) {
   .dashboard-cars-container {
     justify-content: center;
