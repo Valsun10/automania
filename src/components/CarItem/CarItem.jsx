@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const CarItem = ({ car, setCars, cars }) => {
   const [dropdownMenu, setDropdownMenu] = useState(false);
-  const { model, price, mainPhoto, _id } = car;
+  const { model, price, mainPhoto, _id, user } = car;
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -17,14 +17,14 @@ const CarItem = ({ car, setCars, cars }) => {
   };
 
   const { userInfo, openModal, setIsEdit, getCarID } = useGlobalContext();
-  const { user } = userInfo;
+  const userName = localStorage.getItem("fullName");
 
   return (
     <>
       <div className="dashboard-car-item">
         <div className="dashboard-car-item-img">
           <img src={mainPhoto} alt="car" />
-          {user._id === car.user._id ? (
+          {userName === user.fullName ? (
             <>
               <div className="manage" onClick={toggleMenu}>
                 <img

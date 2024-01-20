@@ -22,15 +22,15 @@ const Dashboard = () => {
   const token = localStorage.getItem("token");
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) & cars.length;
+    const newOffset = (e.selected * itemsPerPage) & currentCars.length;
     setItemOffset(newOffset);
   };
 
   const handleDelete = (carID) => {
     carsService.deleteCar(carID, token).then((res) => {
       if (res.success) {
-        const updatedCarList = cars.filter((car) => car._id !== carID);
-        setCars(updatedCarList);
+        const updatedCarList = currentCars.filter((car) => car._id !== carID);
+        setCurrentCars(updatedCarList);
       }
     });
   };
@@ -39,7 +39,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const res = await carsService.fetchAllCars(1, 20);
+        const res = await carsService.fetchAllCars(1, 24);
         setCars(res);
       } catch (error) {
         setErrorMessage(error.message);
@@ -76,14 +76,12 @@ const Dashboard = () => {
             )}
           </div>
           <ReactPaginate
-            nextLabel="next"
+            nextLabel={<button className="next-label">Next</button>}
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
             pageCount={pageCount}
-            previousLabel="previous"
+            previousLabel={<button className="prev-label">Previous</button>}
             containerClassName="pagination"
-            previousClassName="page-num"
-            nextClassName="page-num"
             pageClassName="page-num"
             activeClassName="active-page-num"
             renderOnZeroPageCount={null}
