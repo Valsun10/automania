@@ -22,15 +22,15 @@ const Dashboard = () => {
   const token = localStorage.getItem("token");
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) & cars.length;
+    const newOffset = (e.selected * itemsPerPage) & currentCars.length;
     setItemOffset(newOffset);
   };
 
   const handleDelete = (carID) => {
     carsService.deleteCar(carID, token).then((res) => {
       if (res.success) {
-        const updatedCarList = currentCars.filter((car) => car._id !== carID);
-        setCurrentCars(updatedCarList);
+        const updatedCarList = cars.filter((car) => car._id !== carID);
+        setCars(updatedCarList);
       }
     });
   };

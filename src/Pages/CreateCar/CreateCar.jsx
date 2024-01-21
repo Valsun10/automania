@@ -48,6 +48,7 @@ const CreateCar = () => {
         setErrorMessage("");
         alert("Car has been edited!");
         setIsEdit(false);
+        navigate("/dashboard");
       })
       .catch((err) => {
         setErrorMessage("You are missing dependencies!");
