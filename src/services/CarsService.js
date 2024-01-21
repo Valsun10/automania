@@ -39,7 +39,9 @@ const createCar = async (
 
   const carsData = await response.json();
 
-  if (response.ok) {
+  if (!response.ok) {
+    throw new Error("You are missing dependencies!");
+  } else {
     return carsData.payload;
   }
 };
@@ -87,7 +89,11 @@ const editSingleCar = async (
 
   const jsonResult = await response.json();
 
-  return jsonResult;
+  if (!response.ok) {
+    throw new Error("You are missing dependencies!");
+  } else {
+    return jsonResult;
+  }
 };
 
 const carsService = {

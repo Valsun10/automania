@@ -16,51 +16,42 @@ const CreateCar = () => {
   const [price, setPrice] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const isValid =
-    !mainPhoto || brand.trim() === "" || model.trim() === "" || price < 0;
-
   const { carID } = useParams();
   const token = localStorage.getItem("token");
   const { isEdit, setIsEdit } = useGlobalContext();
 
-  const handleCreate = async () => {
-    try {
-      const res = await carsService.createCar(
-        token,
-        brand,
-        model,
-        price,
-        mainPhoto
-      );
-      if (!res.success) {
-        throw new Error("You are missing dependencies!");
-      }
-      setErrorMessage("");
-      alert("Car has been created!");
-    } catch (err) {
-      setErrorMessage("You are missing dependencies!");
-    }
+  const resetInputs = () => {
+    setMainPhoto("");
+    setBrand("");
+    setModel("");
+    setPrice("");
+    setAdditionalPhotos("");
   };
 
-  const handleEdit = async () => {
-    try {
-      const res = await carsService.editSingleCar(
-        carID,
-        token,
-        brand,
-        model,
-        price,
-        mainPhoto
-      );
-      if (!res.success) {
-        throw new Error("You are missing dependencies!");
-      }
-      setErrorMessage("");
-      alert("Car has been edited!");
-      setIsEdit(false);
-    } catch (err) {
-      setErrorMessage("You are missing dependencies!");
-    }
+  const handleCreate = () => {
+    carsService
+      .createCar(token, brand, model, price, mainPhoto)
+      .then((res) => {
+        resetInputs();
+        setErrorMessage(null);
+        alert("Car has been created!");
+      })
+      .catch((error) => {
+        setErrorMessage("You are missing dependencies!");
+      });
+  };
+
+  const handleEdit = () => {
+    carsService
+      .editSingleCar(carID, token, brand, model, price, mainPhoto)
+      .then((res) => {
+        setErrorMessage("");
+        alert("Car has been edited!");
+        setIsEdit(false);
+      })
+      .catch((err) => {
+        setErrorMessage("You are missing dependencies!");
+      });
   };
 
   useEffect(() => {
@@ -148,7 +139,7 @@ const CreateCar = () => {
               setAdditionalPhotos={setAdditionalPhotos}
             />
           </div>
-          {errorMessage ? <p style={{ color: "red" }}>{errorMessage}</p> : ""}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           {!isEdit ? (
             <button className="mobile-add" onClick={handleCreate}>
               CREATE LISTING

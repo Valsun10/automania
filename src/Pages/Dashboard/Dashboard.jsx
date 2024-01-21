@@ -22,7 +22,7 @@ const Dashboard = () => {
   const token = localStorage.getItem("token");
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) & currentCars.length;
+    const newOffset = (e.selected * itemsPerPage) & cars.length;
     setItemOffset(newOffset);
   };
 
@@ -39,7 +39,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const res = await carsService.fetchAllCars(1, 24);
+        const res = await carsService.fetchAllCars(1, 50);
         setCars(res);
       } catch (error) {
         setErrorMessage(error.message);
@@ -78,7 +78,7 @@ const Dashboard = () => {
           <ReactPaginate
             nextLabel={<button className="next-label">Next</button>}
             onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={10}
             pageCount={pageCount}
             previousLabel={<button className="prev-label">Previous</button>}
             containerClassName="pagination"
