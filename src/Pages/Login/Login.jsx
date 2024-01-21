@@ -30,11 +30,10 @@ const Login = () => {
       .then((res) => {
         if (!res.success) {
           throw new Error("Incorrect email or password!");
-        } else if (res.success) {
-          onLogin(res);
-          setError("");
-          navigate("/");
         }
+        onLogin(res);
+        setError("");
+        navigate("/");
       })
       .catch((err) => {
         setError("Incorrect email or password!");

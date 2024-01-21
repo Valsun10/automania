@@ -4,8 +4,7 @@ import setting from "../../assets/setting.png";
 import pencil from "../../assets/pencil.png";
 import delIcon from "../../assets/delete.png";
 import { useGlobalContext } from "../../context/GlobalContext";
-import carsService from "./../../services/CarsService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CarItem = ({ car, setCars, cars }) => {
   const [dropdownMenu, setDropdownMenu] = useState(false);
@@ -16,7 +15,7 @@ const CarItem = ({ car, setCars, cars }) => {
     setDropdownMenu((state) => !state);
   };
 
-  const { userInfo, openModal, setIsEdit, getCarID } = useGlobalContext();
+  const { openModal, setIsEdit, getCarID } = useGlobalContext();
   const userName = localStorage.getItem("fullName");
 
   return (
