@@ -20,7 +20,7 @@ const Login = () => {
     setShowPassword((state) => !state);
   };
 
-  const isButtonValid = emailInputValue.trim() === "";
+  const isButtonValid = emailInputValue.trim() === "" || !passwordInputValue;
 
   const handleSubmit = (e) => {
     e.preventDefault();

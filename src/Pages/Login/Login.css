@@ -154,6 +154,11 @@ form {
   cursor: pointer;
 }
 
+.button-container button:disabled {
+  cursor: not-allowed;
+  background-color: lightgray;
+}
+
 .button-container button:active {
   transform: scale(0.97);
 }
